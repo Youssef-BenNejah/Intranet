@@ -1,4 +1,4 @@
-package com.example.intranet.controllers;
+package com.example.intranet.controllers.AuthenticationController;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

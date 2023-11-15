@@ -1,7 +1,7 @@
 package com.example.intranet;
 
 import com.example.intranet.Dto.UserDto;
-import com.example.intranet.Services.UserServiceImp;
+import com.example.intranet.Services.AuthentificationService;
 import com.example.intranet.entities.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +18,7 @@ public class IntranetApplication {
 	}
 	@Bean
 	CommandLineRunner commandLineRunner(
-			UserServiceImp userServiceImp
+			AuthentificationService userServiceImp
 	){
 		return args -> UserDto.builder()
 				.adresse("Admin")
