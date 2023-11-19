@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,11 +22,11 @@ public class PostService {
 
     private final String FOLDER ="D:\\intranet_files\\";
 
-    public String uploadPost(MultipartFile file ) throws IOException {
+    public String uploadPost(MultipartFile file,PostDTO postDTO ) throws IOException {
         String path = FOLDER+file.getOriginalFilename();
         var post = Post.builder()
-                .name(file.getOriginalFilename())
-                .type(file.getContentType())
+                .name(postDTO.getName())
+                .type(postDTO.getType())
                 .path(path)
                 .build();
         postRepository.save(post);
@@ -44,19 +45,20 @@ public class PostService {
 
     public PostDTO getPostById(long id) throws IOException {
         Post post = postRepository.getById(id);
-        byte[] fileData =loadImageData(post.getPath());
+        String path =post.getPath();
+        byte[] file= Files.readAllBytes(new File(path).toPath());
         var post1 = PostDTO.builder()
                 .name(post.getName())
                 .type(post.getType())
                 .path(post.getPath())
-                .fileData(fileData)
+                .fileData(file)
                 .build();
         return post1;
     }
 
 
     public List<PostDTO> getAllPost() throws IOException {
-        List<Post> posts = postRepository.findAll();
+        List<Post> posts = postRepository.getAllPostByOrderByTimestampDesc();
         List<PostDTO> postDTOS =new ArrayList<>();
         for (Post post : posts){
             PostDTO postDTO = new PostDTO();
@@ -73,6 +75,15 @@ public class PostService {
 
     public void deleteById(long id) {
         postRepository.deleteById(id);
+    }
+
+    public void updatePost(PostDTO postDTO,long id,MultipartFile file){
+        String path = FOLDER+file.getOriginalFilename();
+        Post post = postRepository.getById(id);
+        post.setName(postDTO.getName());
+        post.setType(postDTO.getType());
+        post.setPath(path);
+        postRepository.save(post);
     }
 
 }

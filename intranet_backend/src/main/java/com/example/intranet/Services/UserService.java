@@ -4,7 +4,7 @@ import com.example.intranet.Dto.UserDto;
 import com.example.intranet.Exceptions.EmailExistException;
 import com.example.intranet.SecurityConfig.JwtService;
 import com.example.intranet.controllers.AuthenticationController.AuthenticationResponse;
-import com.example.intranet.entities.Users;
+import com.example.intranet.entities.UserEntity.Users;
 import com.example.intranet.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

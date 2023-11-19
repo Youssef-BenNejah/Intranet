@@ -2,7 +2,7 @@ package com.example.intranet;
 
 import com.example.intranet.Dto.UserDto;
 import com.example.intranet.Services.AuthentificationService;
-import com.example.intranet.entities.Role;
+import com.example.intranet.entities.UserEntity.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

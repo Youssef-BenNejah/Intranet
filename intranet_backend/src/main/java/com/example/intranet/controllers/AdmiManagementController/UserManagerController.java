@@ -1,7 +1,8 @@
-package com.example.intranet.controllers.ManageController;
+package com.example.intranet.controllers.AdmiManagementController;
 
 import com.example.intranet.Dto.UserDto;
 import com.example.intranet.Services.UserService;
+import com.example.intranet.controllers.ErrorResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,11 @@ public class UserManagerController {
     }
     @PreAuthorize("hasAuthority('admin_update')")
     @PutMapping("/updateUser/{id}")
-    public ResponseEntity<ErrorResponse> updateUser(@RequestBody @Valid UserDto userDto,@PathVariable long id,
-                                              BindingResult bindingResult){
+    public ResponseEntity<ErrorResponse> updateUser(@RequestBody @Valid UserDto userDto,
+                                              BindingResult bindingResult,@PathVariable long id){
         if ( bindingResult.hasErrors())
         {
+            System.out.println("hello");
            List<String> error = bindingResult.getAllErrors().stream()
                    .map(ObjectError::getDefaultMessage)
                    .collect(Collectors.toList());

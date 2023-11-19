@@ -1,4 +1,4 @@
-package com.example.intranet.controllers.ManageController;
+package com.example.intranet.controllers;
 
 import lombok.Builder;
 import lombok.Data;

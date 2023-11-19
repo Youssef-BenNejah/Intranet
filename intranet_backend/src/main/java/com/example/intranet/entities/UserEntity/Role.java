@@ -1,4 +1,4 @@
-package com.example.intranet.entities;
+package com.example.intranet.entities.UserEntity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
