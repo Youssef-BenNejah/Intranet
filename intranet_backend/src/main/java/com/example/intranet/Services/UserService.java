@@ -2,8 +2,9 @@ package com.example.intranet.Services;
 
 import com.example.intranet.Dto.UserDto;
 import com.example.intranet.Exceptions.EmailExistException;
-import com.example.intranet.SecurityConfig.JwtService;
+import com.example.intranet.config.JwtService;
 import com.example.intranet.controllers.AuthenticationController.AuthenticationResponse;
+import com.example.intranet.entities.UserEntity.Etat;
 import com.example.intranet.entities.UserEntity.Users;
 import com.example.intranet.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,12 +44,15 @@ public class UserService {
         List<Users> users = usersRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
         for (Users users1 : users) {
-            var user = UserDto.builder().adresse(users1.getAdresse()).phoneNumber(users1.getPhoneNumber()).role(users1.getRole()).passWord(users1.getPassword()).email(users1.getEmail()).firstName(users1.getFirstName()).lastName(users1.getLastName()).id(users1.getId()).build();
+            var user = UserDto.builder()
+                    .adresse(users1.getAdresse()).
+                    phoneNumber(users1.getPhoneNumber()).
+                    role(users1.getRole()).passWord(users1.getPassword()).email(users1.getEmail()).firstName(users1.getFirstName()).lastName(users1.getLastName()).id(users1.getId()).build();
             userDtos.add(user);
         }
         return userDtos;
     }
-
+@GetMapping("/getUser/{id}")
     public UserDto GetUserById(long id) {
         Users users = usersRepository.getById(id);
         var user = UserDto.builder().adresse(users.getAdresse()).phoneNumber(users.getPhoneNumber()).role(users.getRole()).passWord(users.getPassword()).email(users.getEmail()).firstName(users.getFirstName()).lastName(users.getLastName()).id(users.getId()).build();
@@ -71,6 +76,10 @@ public class UserService {
 
 
 
+    }
+
+    public List<Users> getAllByStatus(){
+        return usersRepository.getAllByEtat(Etat.ONLINE);
     }
 
 

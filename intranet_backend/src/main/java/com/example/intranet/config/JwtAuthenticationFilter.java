@@ -1,4 +1,4 @@
-package com.example.intranet.SecurityConfig;
+package com.example.intranet.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

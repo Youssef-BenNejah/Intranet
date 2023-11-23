@@ -40,7 +40,7 @@ public class Task {
     @JoinColumn(name = "id_project")
     private Project project;
 
-    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "tasks")
     List<Users> users = new ArrayList<>();
 
 }

@@ -2,14 +2,14 @@ package com.example.intranet.Services;
 
 import com.example.intranet.Dto.AuthenticationDTO;
 import com.example.intranet.Exceptions.UserNotFoundException;
-import com.example.intranet.SecurityConfig.JwtService;
+import com.example.intranet.config.JwtService;
 import com.example.intranet.controllers.AuthenticationController.AuthenticationResponse;
+import com.example.intranet.entities.UserEntity.Etat;
 import com.example.intranet.repositories.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,6 +35,8 @@ public class AuthentificationService {
             throw new UserNotFoundException("user not found");
         }
         var user = usersRepository.findUsersByEmail(request.getEmail());
+        user.setEtat(Etat.ONLINE);
+        usersRepository.save(user);
         var JwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(JwtToken)

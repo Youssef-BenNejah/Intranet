@@ -1,11 +1,16 @@
 package com.example.intranet.Services;
 
+import com.example.intranet.Dto.PostDTO;
 import com.example.intranet.Dto.ProjectDTO;
 import com.example.intranet.Dto.TaskDTO;
+import com.example.intranet.Dto.UserDto;
 import com.example.intranet.entities.ProjectEntity.Project;
 import com.example.intranet.entities.ProjectEntity.Task;
+import com.example.intranet.entities.UserEntity.Role;
+import com.example.intranet.entities.UserEntity.Users;
 import com.example.intranet.repositories.ProjectRepository;
 import com.example.intranet.repositories.TaskRepository;
+import com.example.intranet.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,8 @@ import java.util.Optional;
 public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
     public void addTask(TaskDTO taskDTO){
         Task task = new Task();
@@ -51,4 +58,24 @@ public class TaskService {
         return taskDTOS;
     }
 
-}
+//    public void updatePodt(long id , TaskDTO taskDTO){
+//        Task task = taskRepository.getById(id);
+//        task.setName(taskDTO.getName());
+//        task.setPriority(taskDTO.getPriority());
+//        task.setStatuts(taskDTO.getStatuts());
+//        task.setDate_Begin(taskDTO.getDate_Begin());
+//        task.setDate_end(taskDTO.getDate_end());
+//    }
+
+    public void addEmployeToTask(long id,long task_id){
+        Users users = usersRepository.findUsersByRoleAndId(Role.EMPLOYE,id);
+        Task task = taskRepository.getById(task_id);
+
+            users.getTasks().add(task);
+        usersRepository.save(users);
+        }
+
+
+    }
+
+

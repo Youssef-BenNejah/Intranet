@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/Usermanage")
-@PreAuthorize("hasRole('ADMIN')")
+
 public class UserManagerController {
     @Autowired
     UserService userService;
 
-    @PreAuthorize("hasAuthority('admin_create')")
-    @PostMapping("/addUser")
+
+    @PostMapping
     public ResponseEntity <ErrorResponse> addUser(@RequestBody @Valid UserDto userDto ,
                                                   BindingResult bindingResult){
         if (bindingResult.hasErrors()){
@@ -38,14 +38,14 @@ public class UserManagerController {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("hasAuthority('admin_read')")
-    @GetMapping("/getAllUser")
+
+    @GetMapping
     public ResponseEntity<List<UserDto>> getUsers(){
         List<UserDto> userDtos = userService.getAllUsers();
         return ResponseEntity.ok(userDtos);
 
     }
-    @PreAuthorize("hasAuthority('admin_read')")
+
     @GetMapping("/getUser/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable long id){
         if (!userService.existById(id))
@@ -56,8 +56,8 @@ public class UserManagerController {
         return ResponseEntity.ok(userDto);
 
     }
-    @PreAuthorize("hasAuthority('admin_update')")
-    @PutMapping("/updateUser/{id}")
+
+    @PutMapping("{id}")
     public ResponseEntity<ErrorResponse> updateUser(@RequestBody @Valid UserDto userDto,
                                               BindingResult bindingResult,@PathVariable long id){
         if ( bindingResult.hasErrors())
@@ -74,7 +74,7 @@ public class UserManagerController {
 
     }
     @PreAuthorize("hasAuthority('admin_delete')")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<String>deleteUSer(@PathVariable long id){
         if (!userService.existById(id))
         {

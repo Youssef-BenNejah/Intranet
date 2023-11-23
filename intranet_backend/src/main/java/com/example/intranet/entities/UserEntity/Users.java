@@ -1,5 +1,6 @@
 package com.example.intranet.entities.UserEntity;
 
+import com.example.intranet.entities.Chat.Message;
 import com.example.intranet.entities.ProjectEntity.Task;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,9 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Builder
@@ -30,13 +33,22 @@ public class Users implements UserDetails {
     private String adresse;
 
     private String phoneNumber;
+    @Enumerated(EnumType.STRING)
+    private Etat etat;
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    List<Message> users = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private Task task;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_task",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id")
+    )
+    List<Task> tasks = new ArrayList<>();
 
 
     public Users() {
