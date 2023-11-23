@@ -8,7 +8,9 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Builder
@@ -34,9 +36,8 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private Task task;
+ @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    List<Task> tasks =new ArrayList<>();
 
 
     public Users() {

@@ -38,7 +38,7 @@ public class UserDto {
 
     private Role role;
 
-    private Task task;
+
 
 
 

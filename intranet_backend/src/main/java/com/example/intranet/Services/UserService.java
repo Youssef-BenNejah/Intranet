@@ -4,9 +4,11 @@ import com.example.intranet.Dto.UserDto;
 import com.example.intranet.Exceptions.EmailExistException;
 import com.example.intranet.SecurityConfig.JwtService;
 import com.example.intranet.controllers.AuthenticationController.AuthenticationResponse;
+import com.example.intranet.entities.UserEntity.Role;
 import com.example.intranet.entities.UserEntity.Users;
 import com.example.intranet.repositories.UsersRepository;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserService {
     @Autowired
     private UsersRepository usersRepository;
@@ -72,6 +74,27 @@ public class UserService {
 
 
     }
+
+    public List<UserDto> getEmploye(){
+        List<Users> users = usersRepository.findUsersByRole(Role.EMPLOYE);
+        List<UserDto> userDtos = new ArrayList<>();
+        for(Users users1 : users){
+            UserDto userDto = new UserDto();
+            userDto.setEmail(users1.getEmail());
+            userDto.setRole(users1.getRole());
+            userDto.setAdresse(users1.getAdresse());
+            userDto.setId(users1.getId());
+            userDto.setLastName(users1.getLastName());
+            userDto.setFirstName(users1.getFirstName());
+            userDto.setPassWord(users1.getPassword());
+            userDto.setPhoneNumber(users1.getPhoneNumber());
+            userDtos.add(userDto);
+
+
+
+        }return userDtos;
+    }
+
 
 
     public void deleteClient(long id) {
