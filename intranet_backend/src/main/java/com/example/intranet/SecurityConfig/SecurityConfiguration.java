@@ -30,7 +30,8 @@ public class SecurityConfiguration {
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter , UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationFilter , UsernamePasswordAuthenticationFilter.class)
+                .cors(cors->cors.disable());
 //
 
         return http.build();
