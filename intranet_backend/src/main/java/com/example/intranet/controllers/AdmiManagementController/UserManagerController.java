@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/Usermanage")
-
 public class UserManagerController {
     @Autowired
     UserService userService;
 
 
     @PostMapping
+
     public ResponseEntity <ErrorResponse> addUser(@RequestBody @Valid UserDto userDto ,
                                                   BindingResult bindingResult){
         if (bindingResult.hasErrors()){
