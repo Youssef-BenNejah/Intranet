@@ -2,6 +2,7 @@ package com.example.intranet.entities.Chat;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ public class ChatRoom {
     private String chatId;
     private String senderId;
     private String recipientId;
-    @OneToMany(mappedBy = "chatRoom")
+
+
+    @OneToMany(mappedBy = "chatRoom",cas)
     List<Message> messages = new ArrayList<>();
 }
