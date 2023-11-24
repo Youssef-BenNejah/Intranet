@@ -5,9 +5,12 @@ import com.example.intranet.Dto.UserDto;
 import com.example.intranet.Services.TaskService;
 import com.example.intranet.Services.UserService;
 import com.example.intranet.entities.UserEntity.Role;
+import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/tasks")
@@ -48,6 +51,11 @@ public class tasksController {
     public ResponseEntity<?> updateTask(@PathVariable long id, @RequestBody TaskDTO taskDTO){
         taskService.updateTask(id,taskDTO);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("{id}")
+    public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable long id){
+        List<TaskDTO> taskDTOS=taskService.getTasksbyProjectId(id);
+        return ResponseEntity.ok(taskDTOS);
     }
 
 
