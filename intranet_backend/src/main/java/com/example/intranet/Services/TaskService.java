@@ -2,6 +2,7 @@ package com.example.intranet.Services;
 
 import com.example.intranet.Dto.ProjectDTO;
 import com.example.intranet.Dto.TaskDTO;
+import com.example.intranet.Exceptions.TaskNotFoundExeption;
 import com.example.intranet.Exceptions.UserNotFoundException;
 import com.example.intranet.entities.ProjectEntity.Project;
 import com.example.intranet.entities.ProjectEntity.Task;
@@ -67,6 +68,14 @@ public class TaskService {
         task.setStatuts(taskDTO.getStatuts());
         task.setPriority(taskDTO.getPriority());
         taskRepository.save(task);
+    }
+
+    public void updateTaskStatus(long id ,TaskDTO taskDTO){
+        Task task = taskRepository.getById(id);
+        if (task!=null){
+            task.setStatuts(taskDTO.getStatuts());
+            taskRepository.save(task);
+        }throw new TaskNotFoundExeption("task not exist");
     }
 
     public void addEmployeToTask(long id , long task_id){

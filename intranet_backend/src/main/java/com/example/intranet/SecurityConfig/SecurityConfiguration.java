@@ -25,13 +25,13 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorized -> authorized.requestMatchers("/authentication/**"
-                                ,"/projects/**","/tasks/**","/File/**","/Usermanage/**")
+                                ,"/projects/**","/tasks/**","/File/**","/Usermanage/**","/meeting/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter , UsernamePasswordAuthenticationFilter.class)
-                .cors(cors->cors.disable());
+                ;
 //
 
         return http.build();

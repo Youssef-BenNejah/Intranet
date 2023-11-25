@@ -52,6 +52,12 @@ public class tasksController {
         taskService.updateTask(id,taskDTO);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/updateStatus/{id}")
+    public ResponseEntity<?> updateStatus(@PathVariable long id,@RequestBody TaskDTO taskDTO){
+        taskService.updateTaskStatus(id,taskDTO);
+        return ResponseEntity.ok().build();
+    }
     @GetMapping("{id}")
     public ResponseEntity<List<TaskDTO>> getTasks(@PathVariable long id){
         List<TaskDTO> taskDTOS=taskService.getTasksbyProjectId(id);
