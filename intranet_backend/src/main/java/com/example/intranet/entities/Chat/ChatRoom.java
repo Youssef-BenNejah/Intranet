@@ -22,6 +22,6 @@ public class ChatRoom {
     private String recipientId;
 
 
-    @OneToMany(mappedBy = "chatRoom",cas)
+    @OneToMany(mappedBy = "chatRoom")
     List<Message> messages = new ArrayList<>();
 }
