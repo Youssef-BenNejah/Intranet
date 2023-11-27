@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/File")
-
+@PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
 public class PostContoller {
     @Autowired
     private PostService postService;
