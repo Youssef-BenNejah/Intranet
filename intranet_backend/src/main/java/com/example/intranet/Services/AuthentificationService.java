@@ -38,6 +38,14 @@ public class AuthentificationService {
         var JwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(JwtToken)
+                .id(user.getId())
+                .role(user.getRole())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .passWord(user.getPassword())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .adresse(user.getAdresse())
                 .build();
     }
 
